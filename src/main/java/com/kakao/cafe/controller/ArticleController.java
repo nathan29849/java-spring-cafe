@@ -20,7 +20,10 @@ public class ArticleController {
     }
 
     @GetMapping("/questions")
-    public String quest() {
+    public String quest(HttpSession session) {
+        if (session.getAttribute("sessionedUser") == null){
+            return "redirect:/";
+        }
         return "qna/form";
     }
 
@@ -30,7 +33,7 @@ public class ArticleController {
         return "redirect:/";
     }
 
-    @GetMapping("articles/{index}")
+    @GetMapping("/articles/{index}")
     public String detail(@PathVariable("index") int index, Model model, HttpSession session) {
         if (session.getAttribute("sessionedUser") == null){
             return "redirect:/";
@@ -39,4 +42,5 @@ public class ArticleController {
         model.addAttribute("article", articleForm);
         return "qna/show";
     }
+
 }
