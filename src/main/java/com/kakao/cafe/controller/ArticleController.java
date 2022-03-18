@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -29,7 +31,10 @@ public class ArticleController {
     }
 
     @GetMapping("articles/{index}")
-    public String detail(@PathVariable("index") int index, Model model) {
+    public String detail(@PathVariable("index") int index, Model model, HttpSession session) {
+        if (session.getAttribute("sessionedUser") == null){
+            return "redirect:/";
+        }
         ArticleForm articleForm = articleService.findOneArticle(index);
         model.addAttribute("article", articleForm);
         return "qna/show";
