@@ -21,8 +21,9 @@ public class ArticleController {
 
     @GetMapping("/questions")
     public String quest(HttpSession session) {
-        if (session.getAttribute("sessionedUser") == null){
-            return "redirect:/";
+        Object value = session.getAttribute("sessionedUser");
+        if (value == null){
+            return "redirect:/login";
         }
         return "qna/form";
     }
@@ -36,11 +37,22 @@ public class ArticleController {
     @GetMapping("/articles/{index}")
     public String detail(@PathVariable("index") int index, Model model, HttpSession session) {
         if (session.getAttribute("sessionedUser") == null){
-            return "redirect:/";
+            return "redirect:/login";
         }
         ArticleForm articleForm = articleService.findOneArticle(index);
         model.addAttribute("article", articleForm);
         return "qna/show";
+    }
+
+    @GetMapping("/articles/{index}/update")
+    public String update(@PathVariable("index") int index, Model model, HttpSession session) {
+        Object value  = session.getAttribute("sessionedUser");
+        if (value != null) {
+            ArticleForm articleForm = articleService.validateArticle(index, value);
+            model.addAttribute("article", articleForm);
+            return "redirect:";
+        }
+        return "redirect:/articles/{index}";
     }
 
 }
