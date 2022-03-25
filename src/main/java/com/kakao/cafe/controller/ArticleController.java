@@ -40,17 +40,17 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{index}")
-    public String detail(@PathVariable("index") int index, Model model, HttpSession session) {
+    public String detail(@PathVariable("index") Long id, Model model, HttpSession session) {
         if (session.getAttribute("sessionedUser") == null){
             return "user/login";
         }
-        ArticleForm articleForm = articleService.findOneArticle(index);
+        ArticleForm articleForm = articleService.findOneArticle(id);
         model.addAttribute("article", articleForm);
         return "qna/show";
     }
 
     @GetMapping("/articles/{id}/update")
-    public String createUpdateForm(@PathVariable("id") int id, Model model, HttpSession session) {
+    public String createUpdateForm(@PathVariable("id") Long id, Model model, HttpSession session) {
         Object value = session.getAttribute("sessionedUser");
         ArticleForm articleForm = articleService.findOneArticle(id);
 
@@ -64,15 +64,12 @@ public class ArticleController {
     }
 
     @PutMapping("/articles/{id}/update")
-    public String updateArticle(@PathVariable("id") int id, Model model, HttpSession session, @Valid ArticleForm updateForm) {
+    public String updateArticle(@PathVariable("id") Long id, HttpSession session, @Valid ArticleForm updateForm) {
         Object value = session.getAttribute("sessionedUser");
         if (value == null) {
             return "index";
         }
         articleService.update(id, updateForm);
-        ArticleForm articleForm = articleService.findOneArticle(id);
-        model.addAttribute("article", articleForm);
-        return "qna/show";
+        return "redirect:/articles/{id}";
     }
-
 }

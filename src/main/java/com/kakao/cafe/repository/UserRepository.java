@@ -8,13 +8,13 @@ import java.util.Optional;
 public interface UserRepository {
     User save(User user);
 
-    Optional<User> findById(int index);
+    Optional<User> findById(Long id);
 
     Optional<User> findByUserId(String userId);
 
     List<User> findAll();
 
-    void update(User user, int index);
+    void update(User user, Long id);
 
     void clearStore();
 

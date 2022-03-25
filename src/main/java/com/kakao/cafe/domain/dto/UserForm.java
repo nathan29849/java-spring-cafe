@@ -19,7 +19,7 @@ public class UserForm {
     @NotBlank
     private String email;
 
-    private int id;
+    private Long id;
 
     public UserForm(String userId, String name, String password, String email) {
         this.userId = userId;
@@ -32,11 +32,11 @@ public class UserForm {
         return new User(userId, name, password, email);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

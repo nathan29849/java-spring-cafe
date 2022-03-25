@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface ArticleRepository {
     Article save(Article article);
 
-    Optional<Article> findByIndex(int index);
+    Optional<Article> findByIndex(Long id);
 
     List<Article> findAll();
 
-    void update(int id, ArticleForm articleForm);
+    void update(Long id, ArticleForm articleForm);
 }

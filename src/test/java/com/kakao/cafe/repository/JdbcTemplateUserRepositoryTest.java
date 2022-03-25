@@ -36,7 +36,7 @@ class JdbcTemplateUserRepositoryTest {
     @Test
     @DisplayName("id를 기반으로 조회가 잘 되는가")
     void findById() {
-        User savedUser = userRepository.findById(1).orElseThrow();
+        User savedUser = userRepository.findById((long)1).orElseThrow();
         assertThat("user1").isEqualTo(savedUser.getUserId());
     }
 
@@ -62,7 +62,7 @@ class JdbcTemplateUserRepositoryTest {
         User user = new User("user4", "변경전유저", "1234a", "user4@aaa.com");
         User updatedUser = new User("user4", "변경후유저", "1234b", "user4@bbb.com");
         userRepository.save(user);
-        userRepository.update(updatedUser, 4);
+        userRepository.update(updatedUser, (long)4);
         User savedUser = userRepository.findByUserId("user4").orElseThrow();
         assertThat("변경후유저").isEqualTo(savedUser.getName());
     }

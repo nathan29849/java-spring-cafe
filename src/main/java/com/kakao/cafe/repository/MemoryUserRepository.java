@@ -11,21 +11,21 @@ public class MemoryUserRepository implements UserRepository {
     public User save(User user) {
         for (int i = 0; i < userStore.size(); i++) {
             if (userStore.get(i) == null) {
-                return store(user, i);
+                return store(user, (long)i);
             }
         }
-        return store(user, userStore.size());
+        return store(user, (long) userStore.size());
     }
 
-    private User store(User user, int index) {
-        user.setId(index);
+    private User store(User user, Long id) {
+        user.setId(id);
         userStore.add(user);
         return user;
     }
 
     @Override
-    public Optional<User> findById(int index) throws IndexOutOfBoundsException{
-        return Optional.ofNullable(userStore.get(index));
+    public Optional<User> findById(Long id) throws IndexOutOfBoundsException{
+        return Optional.ofNullable(userStore.get(Math.toIntExact(id)));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void update(User user, int index) {
-        userStore.set(index, user);
+    public void update(User user, Long id) {
+        userStore.set(Math.toIntExact(id), user);
     }
 }

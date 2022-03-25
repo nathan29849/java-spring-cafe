@@ -6,7 +6,7 @@ public class LoginForm implements Serializable {
     private String userId;
     private String password;
     private String name;
-    private int id;
+    private Long id;
 
     public LoginForm(String userId, String password, String name) {
         this.userId = userId;
@@ -26,11 +26,11 @@ public class LoginForm implements Serializable {
         return password;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

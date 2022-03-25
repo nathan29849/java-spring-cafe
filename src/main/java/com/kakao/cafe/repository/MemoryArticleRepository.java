@@ -15,21 +15,21 @@ public class MemoryArticleRepository implements ArticleRepository{
     public Article save(Article article) {
         for (int i = 0; i < articleStore.size(); i++) {
             if (articleStore.get(i) == null) {
-                return store(article, i);
+                return store(article, (long)i);
             }
         }
-        return store(article, articleStore.size());
+        return store(article, (long) articleStore.size());
     }
 
-    private Article store(Article article, int index) {
-        article.setIndex(index);
+    private Article store(Article article, Long id) {
+        article.setIndex(id);
         articleStore.add(article);
         return article;
     }
 
     @Override
-    public Optional<Article> findByIndex(int index) throws IndexOutOfBoundsException{
-        return Optional.ofNullable(articleStore.get(index));
+    public Optional<Article> findByIndex(Long id) throws IndexOutOfBoundsException{
+        return Optional.ofNullable(articleStore.get(Math.toIntExact(id)));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MemoryArticleRepository implements ArticleRepository{
     }
 
     @Override
-    public void update(int id, ArticleForm articleForm) {
+    public void update(Long id, ArticleForm articleForm) {
         return;
     }
 }

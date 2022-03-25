@@ -40,14 +40,14 @@ public class UserController {
     }
 
     @GetMapping("/{index}")
-    public String profile(@PathVariable("index") int index, Model model) {
-        UserForm userForm = userService.findOneUser(index);
+    public String profile(@PathVariable("index") Long id, Model model) {
+        UserForm userForm = userService.findOneUser(id);
         model.addAttribute("user", userForm);
         return "user/profile";
     }
 
     @PutMapping("/{id}/update")
-    public String updateUser(@PathVariable("id") int id, @Valid UpdateUserForm updateUserForm) {
+    public String updateUser(@PathVariable("id") Long id, @Valid UpdateUserForm updateUserForm) {
         userService.update(updateUserForm, id);
         return "redirect:/users";
     }

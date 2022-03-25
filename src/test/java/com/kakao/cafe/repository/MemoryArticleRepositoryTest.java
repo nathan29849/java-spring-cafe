@@ -31,8 +31,8 @@ class MemoryArticleRepositoryTest {
     @Test
     @DisplayName("Article 객체가 MemoryArticleRepository에 잘 저장되는가")
     void save() {
-        Article savedArticle1 = articleRepository.findByIndex(0).orElseThrow();
-        Article savedArticle2 = articleRepository.findByIndex(1).orElseThrow();
+        Article savedArticle1 = articleRepository.findByIndex((long)0).orElseThrow();
+        Article savedArticle2 = articleRepository.findByIndex((long)1).orElseThrow();
 
         assertThat(articleRepository.size()).isEqualTo(2);
         assertThat("첫번째 게시글 제목").isEqualTo(savedArticle1.getTitle());
@@ -42,7 +42,7 @@ class MemoryArticleRepositoryTest {
     @Test
     @DisplayName("인덱스가 초과되면, IndexOutOfBoundsException이 뜨는가")
     void findByIndex() {
-        assertThatThrownBy(() -> articleRepository.findByIndex(3))
+        assertThatThrownBy(() -> articleRepository.findByIndex((long)3))
                 .isInstanceOf(IndexOutOfBoundsException.class);
     }
 

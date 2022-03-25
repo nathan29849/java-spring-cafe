@@ -31,7 +31,7 @@ class JdbcTemplateArticleRepositoryTest {
     void saveTest(){
         Article article = new Article("게시글1", "나단", "안녕하세욧~~ 안녕하세욧~~ 안녕하세욧~~ 안녕하세욧~~ 안녕하세욧~~");
         Article savedArticle = articleRepository.save(article);
-        System.out.println(savedArticle.getIndex());
+        System.out.println(savedArticle.getId());
         assertThat("게시글1").isEqualTo(savedArticle.getTitle());
     }
 
@@ -47,9 +47,9 @@ class JdbcTemplateArticleRepositoryTest {
     @Test
     @DisplayName("게시글 인덱스가 잘 조회되는가?")
     void findByIndexTest() {
-        assertThat("게시글제목1").isEqualTo(articleRepository.findByIndex(1).orElseThrow().getTitle());
-        assertThat("게시글제목2").isEqualTo(articleRepository.findByIndex(2).orElseThrow().getTitle());
-        assertThat("게시글제목3").isEqualTo(articleRepository.findByIndex(3).orElseThrow().getTitle());
+        assertThat("게시글제목1").isEqualTo(articleRepository.findByIndex((long)1).orElseThrow().getTitle());
+        assertThat("게시글제목2").isEqualTo(articleRepository.findByIndex((long)2).orElseThrow().getTitle());
+        assertThat("게시글제목3").isEqualTo(articleRepository.findByIndex((long)3).orElseThrow().getTitle());
     }
 }
 

@@ -33,7 +33,7 @@ class ArticleServiceTest {
     void post() {
         ArticleForm articleForm1 = new ArticleForm("게시글 제목1", "나단", "첫번째 게시글입니다.", null);
         articleService.post(articleForm1);
-        ArticleForm savedArticleForm = articleService.findOneArticle(0);
+        ArticleForm savedArticleForm = articleService.findOneArticle((long)0);
 
         assertThat("게시글 제목1").isEqualTo(savedArticleForm.getTitle());
     }
@@ -64,7 +64,7 @@ class ArticleServiceTest {
         articleService.post(articleForm1);
         articleService.post(articleForm2);
 
-        ArticleForm oneArticle = articleService.findOneArticle(1);
+        ArticleForm oneArticle = articleService.findOneArticle((long)1);
         assertThat("게시글 제목2").isEqualTo(oneArticle.getTitle());
     }
     @Test
@@ -75,7 +75,7 @@ class ArticleServiceTest {
         articleService.post(articleForm1);
         articleService.post(articleForm2);
 
-        assertThatThrownBy(()->articleService.findOneArticle(2))
+        assertThatThrownBy(()->articleService.findOneArticle((long)2))
                 .isInstanceOf(IndexOutOfBoundsException.class);
     }
 }

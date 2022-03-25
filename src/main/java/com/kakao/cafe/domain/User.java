@@ -7,7 +7,7 @@ public class User{
     private String name;
     private String password;
     private String email;
-    private int id;
+    private Long id;
 
     public User(String userId, String name, String password, String email) {
         this.userId = userId;
@@ -31,11 +31,11 @@ public class User{
         return email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

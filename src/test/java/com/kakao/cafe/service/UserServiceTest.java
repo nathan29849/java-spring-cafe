@@ -34,7 +34,7 @@ class UserServiceTest {
         UserForm userForm = new UserForm("honux", "호눅스", "1234a", "honux77@gmail.com");
 
         //when
-        int userIndex = userService.join(userForm);
+        Long userIndex = userService.join(userForm);
 
         //then
         UserForm findUser = userService.findOneUser(userIndex);
@@ -84,10 +84,10 @@ class UserServiceTest {
 
         //when
         UpdateUserForm updateUserForm = new UpdateUserForm("nathan29849", "호눅스의제자", "code777", "nathan29849@lucas.com", "honux777");
-        userService.update(updateUserForm, 0);
+        userService.update(updateUserForm, (long)0);
 
         //then
-        UserForm updatedUser = userService.findOneUser(0);
+        UserForm updatedUser = userService.findOneUser((long)0);
         assertThat("호눅스의제자").isEqualTo(updatedUser.getName());
         assertThat("nathan29849@lucas.com").isEqualTo(updatedUser.getEmail());
         assertThat("honux777").isEqualTo(updatedUser.getPassword());
@@ -104,7 +104,7 @@ class UserServiceTest {
         UpdateUserForm updateUserForm = new UpdateUserForm("nathan29849", "호눅스의제자", "code777", "nathan29849@lucas.com", "honux777");
 
         //then
-        assertThatThrownBy(() -> userService.update(updateUserForm, 2))
+        assertThatThrownBy(() -> userService.update(updateUserForm, (long)2))
                 .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
@@ -119,7 +119,7 @@ class UserServiceTest {
         UpdateUserForm updateUserForm = new UpdateUserForm("nathan29849", "호눅스의제자", "123123a", "nathan29849@lucas.com", "honux777");
 
         //then
-        assertThatThrownBy(() -> userService.update(updateUserForm, 0))
+        assertThatThrownBy(() -> userService.update(updateUserForm, (long)0))
                 .hasMessage("비밀번호가 일치하지 않습니다.");
     }
 }

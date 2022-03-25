@@ -8,7 +8,7 @@ public class Article {
     private String writer;
     private String dateTime;
     private String contents;
-    private int index;
+    private Long id;
 
 
     public Article(String title, String writer, String contents) {
@@ -41,11 +41,11 @@ public class Article {
         return contents;
     }
 
-    public int getIndex() {
-        return index;
+    public Long getId() {
+        return id;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setIndex(Long id) {
+        this.id = id;
     }
 }

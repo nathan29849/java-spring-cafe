@@ -1,7 +1,6 @@
 package com.kakao.cafe.repository;
 
 import com.kakao.cafe.domain.Article;
-import com.kakao.cafe.domain.User;
 import com.kakao.cafe.domain.dto.ArticleForm;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,20 +26,20 @@ public class JdbcTemplateArticleRepository implements ArticleRepository{
     @Override
     public Article save(Article article) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        jdbcInsert.withTableName("article").usingGeneratedKeyColumns("index"); // pk column 지정 및 auto increment
+        jdbcInsert.withTableName("article").usingGeneratedKeyColumns("id"); // pk column 지정 및 auto increment
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", article.getTitle());
         parameters.put("writer", article.getWriter());
         parameters.put("contents", article.getContents());
         parameters.put("datetime", article.getDateTime());
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-        article.setIndex(key.intValue());
+        article.setIndex(key.longValue());
         return article;
     }
 
     @Override
-    public Optional<Article> findByIndex(int index) {
-        List<Article> articles = jdbcTemplate.query("select * from article where index = ?", articleRowMapper(), index);
+    public Optional<Article> findByIndex(Long id) {
+        List<Article> articles = jdbcTemplate.query("select * from article where id = ?", articleRowMapper(), id);
         return articles.stream().findAny();
     }
 
@@ -57,14 +56,14 @@ public class JdbcTemplateArticleRepository implements ArticleRepository{
                     rs.getString("contents"),
                     rs.getString("datetime")
             );
-            article.setIndex(rs.getInt("index"));
+            article.setIndex(rs.getLong("id"));
             return article;
         };
     }
 
     @Override
-    public void update(int id, ArticleForm articleForm) {
-        String sql = "update article set writer = ?, title = ?, contents = ?, datetime = ? where index = ?";
+    public void update(Long id, ArticleForm articleForm) {
+        String sql = "update article set writer = ?, title = ?, contents = ?, datetime = ? where id = ?";
         jdbcTemplate.update(sql,
             articleForm.getWriter(),
             articleForm.getTitle(),

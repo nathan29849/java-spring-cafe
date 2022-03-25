@@ -32,12 +32,12 @@ public class JdbcTemplateUserRepository implements UserRepository{
         parameters.put("password", user.getPassword());
         parameters.put("email", user.getEmail());
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-        user.setId(key.intValue());
+        user.setId(key.longValue());
         return user;
     }
 
     @Override
-    public Optional<User> findById(int id) {
+    public Optional<User> findById(Long id) {
         List<User> users = jdbcTemplate.query("select * from user where id = ?", userRowMapper(), id);
         return users.stream().findAny();
     }
@@ -50,7 +50,7 @@ public class JdbcTemplateUserRepository implements UserRepository{
                     rs.getString("password"),
                     rs.getString("email")
             );
-            user.setId(rs.getInt("id"));
+            user.setId(rs.getLong("id"));
             return user;
         };
     }
@@ -67,7 +67,7 @@ public class JdbcTemplateUserRepository implements UserRepository{
     }
 
     @Override
-    public void update(User user, int id) {
+    public void update(User user, Long id) {
         String sql = "update user set userid = ?, name = ?, password = ?, email = ? where id = ?";
         jdbcTemplate.update(sql,
                 user.getUserId(),

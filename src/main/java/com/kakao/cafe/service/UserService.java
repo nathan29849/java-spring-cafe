@@ -17,7 +17,7 @@ public class UserService{
         this.userRepository = userRepository;
     }
 
-    public int join(UserForm userForm) {
+    public Long join(UserForm userForm) {
         User user = userForm.createUser();
         validateDuplicateUserId(user);
         userRepository.save(user);
@@ -35,21 +35,21 @@ public class UserService{
                 });
     }
 
-    public UserForm findOneUser(int index) {
-        User user = userRepository.findById(index)
+    public UserForm findOneUser(Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
         return new UserForm(user.getUserId(), user.getName(), user.getPassword(), user.getEmail());
     }
 
-    public void update(UpdateUserForm updateUserForm, int index) {
-        validatePassword(updateUserForm.getPassword(), index);
+    public void update(UpdateUserForm updateUserForm, Long id) {
+        validatePassword(updateUserForm.getPassword(), id);
         User user = updateUserForm.createUser(updateUserForm.getNewPassword()); // 새로운 비밀번호로 User 객체 생성
-        user.setId(index);
-        userRepository.update(user, index);
+        user.setId(id);
+        userRepository.update(user, id);
     }
 
-    private void validatePassword(String password, int index) {
-        User user = userRepository.findById(index)
+    private void validatePassword(String password, Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
         if (!user.getPassword().equals(password)) {
             throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
@@ -64,7 +64,7 @@ public class UserService{
     }
 
     private UserForm getLoginUserForm(LoginForm loginForm, User compareUser) {
-        if (compareUser.getId() == loginForm.getId()) {
+        if (compareUser.getId().equals(loginForm.getId())) {
             UserForm loginUserForm = new UserForm(compareUser.getUserId(), compareUser.getName(), compareUser.getPassword(), compareUser.getEmail());
             loginUserForm.setId(compareUser.getId());
             return loginUserForm;
