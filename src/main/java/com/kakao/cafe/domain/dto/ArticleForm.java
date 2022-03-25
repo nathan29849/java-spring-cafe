@@ -20,9 +20,15 @@ public class ArticleForm {
 
     private Long id;
 
-
-
     public ArticleForm(String title, String writer, String contents, String dateTime) {
+        this.title = title;
+        this.writer = writer;
+        this.contents = contents;
+        this.dateTime = checkDateTimeNull(dateTime);
+    }
+
+    public ArticleForm(Long id, String title, String writer, String contents, String dateTime) {
+        this.id = id;
         this.title = title;
         this.writer = writer;
         this.contents = contents;
@@ -57,9 +63,5 @@ public class ArticleForm {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

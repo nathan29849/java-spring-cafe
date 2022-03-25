@@ -30,9 +30,7 @@ public class ArticleService {
     public ArticleForm findOneArticle(Long id) {
         Article article = articleRepository.findByIndex(id)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
-        ArticleForm articleForm = new ArticleForm(article.getTitle(), article.getWriter(), article.getContents(), article.getDateTime());
-        articleForm.setId(article.getId());
-        return articleForm;
+        return new ArticleForm(article.getId(), article.getTitle(), article.getWriter(), article.getContents(), article.getDateTime());
     }
 
 

@@ -43,7 +43,7 @@ class ArticleServiceTest {
     void findArticles() {
         ArticleForm articleForm1 = new ArticleForm("게시글 제목1", "나단", "첫번째 게시글입니다.", null);
         ArticleForm articleForm2 = new ArticleForm("게시글 제목2", "호눅스", "두번째 게시글입니다.", null);
-        ArticleForm articleForm3 = new ArticleForm("게시글 제목3", "크롱", "세번째 게시글입니다.", null);
+        ArticleForm articleForm3 = new ArticleForm( "게시글 제목3", "크롱", "세번째 게시글입니다.", null);
         articleService.post(articleForm1);
         articleService.post(articleForm2);
         articleService.post(articleForm3);
@@ -70,12 +70,12 @@ class ArticleServiceTest {
     @Test
     @DisplayName("인덱스가 초과되면, IndexOutOfBoundsException이 뜨는가")
     void findOneArticleOverIndexBound() {
-        ArticleForm articleForm1 = new ArticleForm("게시글 제목1", "나단", "첫번째 게시글입니다.", null);
-        ArticleForm articleForm2 = new ArticleForm("게시글 제목2", "호눅스", "두번째 게시글입니다.", null);
+        ArticleForm articleForm1 = new ArticleForm( "게시글 제목1", "나단", "첫번째 게시글입니다.", null);
+        ArticleForm articleForm2 = new ArticleForm( "게시글 제목2", "호눅스", "두번째 게시글입니다.", null);
         articleService.post(articleForm1);
         articleService.post(articleForm2);
 
-        assertThatThrownBy(()->articleService.findOneArticle((long)2))
+        assertThatThrownBy(()->articleService.findOneArticle((long)6))
                 .isInstanceOf(IndexOutOfBoundsException.class);
     }
 }
