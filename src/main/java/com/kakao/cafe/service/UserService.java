@@ -1,7 +1,7 @@
 package com.kakao.cafe.service;
 
 import com.kakao.cafe.domain.User;
-import com.kakao.cafe.domain.dto.LoginForm;
+import com.kakao.cafe.domain.dto.LoginedUser;
 import com.kakao.cafe.domain.dto.UpdateUserForm;
 import com.kakao.cafe.domain.dto.UserForm;
 import com.kakao.cafe.repository.UserRepository;
@@ -57,14 +57,14 @@ public class UserService{
     }
 
     public UserForm validateLoginUser(String userId, Object value) {
-        LoginForm loginForm = (LoginForm) value;
+        LoginedUser loginedUser = (LoginedUser) value;
         User compareUser = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
-        return getLoginUserForm(loginForm, compareUser);
+        return getLoginUserForm(loginedUser, compareUser);
     }
 
-    private UserForm getLoginUserForm(LoginForm loginForm, User compareUser) {
-        if (compareUser.getId().equals(loginForm.getId())) {
+    private UserForm getLoginUserForm(LoginedUser loginedUser, User compareUser) {
+        if (compareUser.getId().equals(loginedUser.getId())) {
             UserForm loginUserForm = new UserForm(compareUser.getUserId(), compareUser.getName(), compareUser.getPassword(), compareUser.getEmail());
             loginUserForm.setId(compareUser.getId());
             return loginUserForm;

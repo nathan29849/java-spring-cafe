@@ -2,13 +2,13 @@ package com.kakao.cafe.domain.dto;
 
 import java.io.Serializable;
 
-public class LoginForm implements Serializable {
+public class LoginedUser implements Serializable {
     private String userId;
     private String password;
     private String name;
     private Long id;
 
-    public LoginForm(String userId, String password, String name) {
+    public LoginedUser(String userId, String password, String name) {
         this.userId = userId;
         this.password = password;
         this.name = name;

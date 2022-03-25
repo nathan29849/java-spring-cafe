@@ -33,7 +33,7 @@ public class JdbcTemplateArticleRepository implements ArticleRepository{
         parameters.put("contents", article.getContents());
         parameters.put("datetime", article.getDateTime());
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-        article.setIndex(key.longValue());
+        article.setId(key.longValue());
         return article;
     }
 
@@ -56,7 +56,7 @@ public class JdbcTemplateArticleRepository implements ArticleRepository{
                     rs.getString("contents"),
                     rs.getString("datetime")
             );
-            article.setIndex(rs.getLong("id"));
+            article.setId(rs.getLong("id"));
             return article;
         };
     }

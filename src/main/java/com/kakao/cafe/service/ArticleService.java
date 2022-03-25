@@ -2,10 +2,8 @@ package com.kakao.cafe.service;
 
 import com.kakao.cafe.domain.Article;
 import com.kakao.cafe.domain.dto.ArticleForm;
-import com.kakao.cafe.domain.dto.LoginForm;
+import com.kakao.cafe.domain.dto.LoginedUser;
 import com.kakao.cafe.repository.ArticleRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,11 +28,13 @@ public class ArticleService {
     public ArticleForm findOneArticle(Long id) {
         Article article = articleRepository.findByIndex(id)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
-        return new ArticleForm(article.getId(), article.getTitle(), article.getWriter(), article.getContents(), article.getDateTime());
+        ArticleForm articleForm = new ArticleForm(article.getTitle(), article.getWriter(), article.getContents(), article.getDateTime());
+        articleForm.setId(article.getId());
+        return articleForm;
     }
 
 
-    public void validateArticle(Long id, LoginForm value) {
+    public void validateArticle(Long id, LoginedUser value) {
         ArticleForm articleForm = findOneArticle(id);
         System.out.println("articleForm.getWriter() = " + articleForm.getWriter());
         System.out.println("value.getName() = " + value.getName());

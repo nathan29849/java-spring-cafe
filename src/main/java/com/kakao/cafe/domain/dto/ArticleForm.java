@@ -27,14 +27,6 @@ public class ArticleForm {
         this.dateTime = checkDateTimeNull(dateTime);
     }
 
-    public ArticleForm(Long id, String title, String writer, String contents, String dateTime) {
-        this.id = id;
-        this.title = title;
-        this.writer = writer;
-        this.contents = contents;
-        this.dateTime = checkDateTimeNull(dateTime);
-    }
-
     private String checkDateTimeNull(String dateTime) {
         if (dateTime == null){
             return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -63,5 +55,9 @@ public class ArticleForm {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

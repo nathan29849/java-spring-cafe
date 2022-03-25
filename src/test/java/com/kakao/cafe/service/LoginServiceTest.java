@@ -1,11 +1,8 @@
 package com.kakao.cafe.service;
 
-import com.kakao.cafe.domain.User;
-import com.kakao.cafe.domain.dto.LoginForm;
+import com.kakao.cafe.domain.dto.LoginedUser;
 import com.kakao.cafe.repository.JdbcTemplateUserRepository;
-import com.kakao.cafe.repository.MemoryUserRepository;
 import com.kakao.cafe.repository.UserRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,8 +30,8 @@ class LoginServiceTest {
     @Test
     @DisplayName("로그인에 성공한 경우 해당 유저를 잘 반환하는가")
     void login() {
-        LoginForm loginForm = loginService.login("user1", "123123a");
-        assertThat("user1").isEqualTo(loginForm.getUserId());
+        LoginedUser loginedUser = loginService.login("user1", "123123a");
+        assertThat("user1").isEqualTo(loginedUser.getUserId());
     }
 
     @Test

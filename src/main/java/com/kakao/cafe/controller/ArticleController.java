@@ -1,7 +1,7 @@
 package com.kakao.cafe.controller;
 
 import com.kakao.cafe.domain.dto.ArticleForm;
-import com.kakao.cafe.domain.dto.LoginForm;
+import com.kakao.cafe.domain.dto.LoginedUser;
 import com.kakao.cafe.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class ArticleController {
 
     @GetMapping("/questions")
     public String quest(HttpSession session) {
-        Object value = session.getAttribute("sessionedUser");
+        Object value = session.getAttribute("SessionedUser");
         if (value == null){
             return "redirect:/login";
         }
@@ -35,13 +35,14 @@ public class ArticleController {
 
     @PostMapping("/questions")
     public String createQuest(@Valid ArticleForm articleForm) {
+        System.out.println("createQuest()");
         articleService.post(articleForm);
         return "redirect:/";
     }
 
     @GetMapping("/articles/{index}")
     public String detail(@PathVariable("index") Long id, Model model, HttpSession session) {
-        if (session.getAttribute("sessionedUser") == null){
+        if (session.getAttribute("SessionedUser") == null){
             return "user/login";
         }
         ArticleForm articleForm = articleService.findOneArticle(id);
@@ -51,7 +52,7 @@ public class ArticleController {
 
     @GetMapping("/articles/{id}/update")
     public String createUpdateForm(@PathVariable("id") Long id, Model model, HttpSession session) {
-        Object value = session.getAttribute("sessionedUser");
+        Object value = session.getAttribute("SessionedUser");
         ArticleForm articleForm = articleService.findOneArticle(id);
 
         model.addAttribute("article", articleForm);
@@ -59,13 +60,13 @@ public class ArticleController {
             return "qna/show";
         }
 
-        articleService.validateArticle(id, (LoginForm)value);
+        articleService.validateArticle(id, (LoginedUser)value);
         return "qna/updateForm";
     }
 
     @PutMapping("/articles/{id}/update")
     public String updateArticle(@PathVariable("id") Long id, HttpSession session, @Valid ArticleForm updateForm) {
-        Object value = session.getAttribute("sessionedUser");
+        Object value = session.getAttribute("SessionedUser");
         if (value == null) {
             return "index";
         }

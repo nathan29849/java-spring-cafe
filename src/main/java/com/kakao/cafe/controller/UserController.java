@@ -54,7 +54,7 @@ public class UserController {
 
     @GetMapping("/{userId}/update")
     public String createUpdateFormByLoginUser(@PathVariable("userId") String userId, HttpSession session, Model model) {
-        Object value = session.getAttribute("sessionedUser");
+        Object value = session.getAttribute("SessionedUser");
         if (value != null) {
             UserForm loginUserForm = userService.validateLoginUser(userId, value);
             model.addAttribute("user", loginUserForm);

@@ -22,7 +22,7 @@ public class MemoryArticleRepository implements ArticleRepository{
     }
 
     private Article store(Article article, Long id) {
-        article.setIndex(id);
+        article.setId(id);
         articleStore.add(article);
         return article;
     }

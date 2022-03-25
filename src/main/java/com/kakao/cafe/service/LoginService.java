@@ -1,7 +1,7 @@
 package com.kakao.cafe.service;
 
 import com.kakao.cafe.domain.User;
-import com.kakao.cafe.domain.dto.LoginForm;
+import com.kakao.cafe.domain.dto.LoginedUser;
 import com.kakao.cafe.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +13,16 @@ public class LoginService {
         this.userRepository = userRepository;
     }
 
-    public LoginForm login(String userId, String password){
+    public LoginedUser login(String userId, String password){
         User user = getUser(userId);
         return checkPassword(userId, password, user);
     }
 
-    private LoginForm checkPassword(String userId, String password, User user) {
+    private LoginedUser checkPassword(String userId, String password, User user) {
         if (user.getPassword().equals(password)) {
-            LoginForm loginForm = new LoginForm(userId, password, user.getName());
-            loginForm.setId(user.getId());
-            return loginForm;
+            LoginedUser loginedUser = new LoginedUser(userId, password, user.getName());
+            loginedUser.setId(user.getId());
+            return loginedUser;
         }
         throw new IllegalArgumentException("비밀번호가 틀립니다.");
     }

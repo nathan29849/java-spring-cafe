@@ -45,7 +45,7 @@ public class Article {
         return id;
     }
 
-    public void setIndex(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

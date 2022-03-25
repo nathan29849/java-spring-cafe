@@ -19,14 +19,8 @@
                     <div class="wrap">
                         <div class="main">
                             <strong class="subject">
-                                <a th:href="@{articles/{index}(index=${articles[i].id})}"
+                                <a th:href="@{articles/{id}(id=${articles[i].id})}"
                                    th:text="${articles[i].title}"></a>
-<!--                                <a th:unless="${session.isEmpty()}"-->
-<!--                                   th:href="@{articles/{index}(index=${articles[i].index})}"-->
-<!--                                   th:text="${articles[i].title}"></a>-->
-<!--                                <a th:if="${session.isEmpty()}"-->
-<!--                                   th:href="@{/}"-->
-<!--                                   th:text="${articles[i].title}"></a>-->
                             </strong>
                             <div class="auth-info">
                                 <i class="icon-add-comment"></i>
