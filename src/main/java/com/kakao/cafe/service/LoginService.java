@@ -20,7 +20,7 @@ public class LoginService {
 
     private LoginForm checkPassword(String userId, String password, User user) {
         if (user.getPassword().equals(password)) {
-            LoginForm loginForm = new LoginForm(userId, password);
+            LoginForm loginForm = new LoginForm(userId, password, user.getName());
             loginForm.setId(user.getId());
             return loginForm;
         }

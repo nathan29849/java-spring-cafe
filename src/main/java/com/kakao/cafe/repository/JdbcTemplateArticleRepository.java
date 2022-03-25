@@ -1,6 +1,8 @@
 package com.kakao.cafe.repository;
 
 import com.kakao.cafe.domain.Article;
+import com.kakao.cafe.domain.User;
+import com.kakao.cafe.domain.dto.ArticleForm;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -58,6 +60,18 @@ public class JdbcTemplateArticleRepository implements ArticleRepository{
             article.setIndex(rs.getInt("index"));
             return article;
         };
+    }
+
+    @Override
+    public void update(int id, ArticleForm articleForm) {
+        String sql = "update article set writer = ?, title = ?, contents = ?, datetime = ? where index = ?";
+        jdbcTemplate.update(sql,
+            articleForm.getWriter(),
+            articleForm.getTitle(),
+            articleForm.getContents(),
+            null,
+            id
+        );
     }
 
 }

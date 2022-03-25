@@ -2,6 +2,7 @@ package com.kakao.cafe.repository;
 
 import com.kakao.cafe.domain.Article;
 
+import com.kakao.cafe.domain.dto.ArticleForm;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,5 +43,10 @@ public class MemoryArticleRepository implements ArticleRepository{
 
     public int size() {
         return articleStore.size();
+    }
+
+    @Override
+    public void update(int id, ArticleForm articleForm) {
+        return;
     }
 }

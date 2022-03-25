@@ -18,7 +18,10 @@ public class ArticleForm {
 
     private String dateTime;
 
-    public ArticleForm(String title, String writer, String contents, String dateTime) {
+    private Long id;
+
+    public ArticleForm(Long id, String title, String writer, String contents, String dateTime) {
+        this.id = id;
         this.title = title;
         this.writer = writer;
         this.contents = contents;
@@ -49,5 +52,9 @@ public class ArticleForm {
 
     public Article createArticle() {
         return new Article(title, writer, contents);
+    }
+
+    public Long getId() {
+        return id;
     }
 }

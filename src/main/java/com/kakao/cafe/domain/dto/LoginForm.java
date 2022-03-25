@@ -5,11 +5,17 @@ import java.io.Serializable;
 public class LoginForm implements Serializable {
     private String userId;
     private String password;
+    private String name;
     private int id;
 
-    public LoginForm(String userId, String password) {
+    public LoginForm(String userId, String password, String name) {
         this.userId = userId;
         this.password = password;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getUserId() {
